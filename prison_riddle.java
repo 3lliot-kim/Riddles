@@ -1,18 +1,18 @@
-import java.io.*;
 import java.util.*;
 
-public class prison_riddle{
+public class prison_riddle {
     private int[][] grid;
-    private int n = 100;
+    private int num_prisoners = 100;
     private List<Integer> list;
     private List<Boolean> prisoners;
     private int check;
+    public Boolean fate;
 
     public prison_riddle() {
         this.grid = new int[10][10];
-        list = new ArrayList<>(this.n);
-        prisoners = new ArrayList<>(this.n);
-        for (int i = 0; i < this.n; i++){
+        list = new ArrayList<>(this.num_prisoners);
+        prisoners = new ArrayList<>(this.num_prisoners);
+        for (int i = 0; i < this.num_prisoners; i++){
             list.add(i + 1);
             prisoners.add(false);
         }
@@ -21,7 +21,7 @@ public class prison_riddle{
     }
 
     public void placeValue() {
-        for (int i = 0; i < this.n; i++) {
+        for (int i = 0; i < this.num_prisoners; i++) {
             int r = i / 10;
             int c = i % 10;
             this.grid[r][c] = this.list.get(i);
@@ -59,24 +59,11 @@ public class prison_riddle{
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        //Playground puzzle = new Playground();
-        //puzzle.printGrid();
-        //puzzle.find();
-        //System.out.println(puzzle.prisoners.contains(false));
-        prison_riddle puzzle;
-        double x = Math.pow(10, 3);
-        int escape = 0;
-        for (int i = 0; i < x; i++) {
-            puzzle = new prison_riddle();
-            puzzle.find();
-            //System.out.println(puzzle.prisoners.contains(false));
-            if (puzzle.prisoners.contains(false)) {
-                escape += 1;
-            }
+        if (this.prisoners.contains(false)) {
+            this.fate = false;
         }
-        System.out.println(1 - (float)escape / x);
+        else {
+            this.fate = true;
+        }
     }
 }
